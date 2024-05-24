@@ -47,6 +47,8 @@ Before you begin, ensure you have [`kubectl`](https://kubernetes.io/docs/tasks/t
     kubectl port-forward service/argocd-server -n argocd 8080:80
     ```
 
+    The web interface will be using a self-signed certificate. Accept the certificate and continue to the login screen.
+
     The web interface has a default account with the username `admin`, and a password stored in the `argocd-initial-admin-secret` secret (under the `password` key). Run the following to obtain the password:
 
     ```sh
