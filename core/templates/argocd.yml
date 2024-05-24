@@ -20,6 +20,23 @@ spec:
     - repoURL: https://argoproj.github.io/argo-helm
       targetRevision: 6.10.2
       chart: argo-cd
+      {{ $argoDomain := or .Values.argoDomainOverride (print (or .Values.argoDomainName "argo") "." (or .Values.clusterDomain .Values.domain)) }}
+      helm:
+        values: |
+          global:
+            domain: {{ $argoDomain }}
+
+          configs:
+            params:
+              server.insecure: true # Disable TLS, since we rely on our ingress for SSL
+
+          server:
+            ingress:
+              enabled: true
+              ingressClassName: {{ .Values.ingressClassName }} # Uses ingress-nginx
+              annotations:
+                nginx.ingress.kubernetes.io/force-ssl-redirect: "true" // Always use HTTPS
+                nginx.ingress.kubernetes.io/backend-protocol: "HTTP" // Use HTTP to connect to the argo-cd server
 
     # - repoURL: {{ .Values.repository.url }}
     #   path: core/extras/argocd
