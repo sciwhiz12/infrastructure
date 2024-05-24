@@ -16,3 +16,10 @@ firstInstall: false
 
 # The ingress class name. Change if not using ingress-nginx.
 ingressClassName: nginx
+
+# Argo CD
+argo:
+  # The subdomain for the Argo ingress (<domainName>.<domain>)
+  domainName: argo
+  # Domain override for the Argo ingress; if set, argo.domainName is unused
+  domainOverride: ~

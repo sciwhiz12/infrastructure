@@ -20,11 +20,10 @@ spec:
     - repoURL: https://argoproj.github.io/argo-helm
       targetRevision: 6.10.2
       chart: argo-cd
-      {{ $argoDomain := or .Values.argoDomainOverride (print (or .Values.argoDomainName "argo") "." (or .Values.clusterDomain .Values.domain)) }}
       helm:
         values: |
           global:
-            domain: {{ $argoDomain }}
+            domain: {{ or .Values.argo.domainOverride (print (or .Values.argo.domainName "argo") "." .Values.domain) }}
 
           configs:
             params:
