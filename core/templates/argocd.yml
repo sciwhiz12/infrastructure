@@ -36,6 +36,7 @@ spec:
               annotations:
                 nginx.ingress.kubernetes.io/force-ssl-redirect: "true" # Always use HTTPS
                 nginx.ingress.kubernetes.io/backend-protocol: "HTTP" # Use HTTP to connect to the argo-cd server
+              tls: true
 
     # - repoURL: {{ .Values.repository.url }}
     #   path: core/extras/argocd
