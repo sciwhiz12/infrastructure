@@ -24,7 +24,7 @@ Before you begin, ensure you have [`kubectl`](https://kubernetes.io/docs/tasks/t
     To install as a standalone cluster (or as first node in a cluster) without Traefik (ingress and load balancer), run the following command:
 
     ```sh
-    curl -sfL https://get.k3s.io | sh - --disable traefik
+    curl -sfL https://get.k3s.io | sh -s - --disable traefik
     ```
 
     Obtain the Kubernetes config from `/etc/rancher/k3s/k3s.yaml` (to use locally). Remember to ensure the cluster URL points to the actual cluster's URL. Configure `kubectl` to use that cluster (and by extension, so will `helm` and `kubeseal`.)
