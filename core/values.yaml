@@ -6,3 +6,7 @@ destination:
 repository:
   # The online repository URL. This must match the URL used in initial configuration.
   url: "git@github.com:sciwhiz12/infrastructure.git"
+
+# Set this to 'true' on the first install, and 'false' directly afterwards once sync finishes
+# Needed for jobs that must not run on first install (such as Longhorn's pre-upgrade job)
+firstInstall: false

@@ -27,7 +27,7 @@ spec:
             # The 'dedicated-storage' taint can be declared on a node to specify it is dedicated for Longhorn storage purposes
         values: |-
           preUpgradeChecker:
-            jobEnabled: false # Set this to `false` on first install, and `true` afterwards
+            jobEnabled: {{ .Values.firstInstall | ternary false true }} # Opposite of firstInstall
 
           longhornManager:
             tolerations:
