@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: external-dns
+  namespace: argocd
+
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+  destination:
+    server: {{ .Values.destination.server }}
+    namespace: external-dns
+
+  sources:
+    - repoURL: oci://registry-1.docker.io/bitnamicharts
+      chart: external-dns
+      targetRevision: 0.14.2
+      helm:
+        values: |-
+          provider: cloudflare
+          cloudflare:
+            secretName: cloudflare-api-token # Token should be stored under key of 'apiKey'
+            proxied: true # Default to proxying
+
+    - repoURL: {{ .Values.repository.url }}
+      path: core/extras/external-dns
+      targetRevision: HEAD
