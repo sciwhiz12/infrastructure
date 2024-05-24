@@ -23,7 +23,7 @@ spec:
       helm:
         values: |
           global:
-            domain: {{ or .Values.argo.domainOverride (print .Values.argo.domainName "." .Values.domain) }}
+            domain: {{ or .Values.argo.domainOverride (print (or .Values.argo.domainName "argo") "." (or .Values.clusterDomain .Values.domain)) }}
 
           configs:
             params:
