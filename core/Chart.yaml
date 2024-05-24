@@ -1,0 +1,6 @@
+apiVersion: v2
+name: core
+description: Core services for the cluster
+
+type: application
+version: 1.0.0
