@@ -21,7 +21,7 @@ spec:
       targetRevision: 4.10.1
       chart: ingress-nginx
       helm:
-        values: |-
+        valuesObject:
           controller:
             service:
               enabled: false # TODO: figure what this and hostPort does

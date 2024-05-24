@@ -21,7 +21,7 @@ spec:
       targetRevision: 6.10.2
       chart: argo-cd
       helm:
-        values: |
+        valuesObject:
           global:
             domain: {{ or .Values.argo.domainOverride (print (or .Values.argo.domainName "argo") "." (or .Values.clusterDomain .Values.domain)) }}
 

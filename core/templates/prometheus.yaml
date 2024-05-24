@@ -22,7 +22,7 @@ spec:
       chart: kube-prometheus-stack
       targetRevision: 58.7.2
       helm:
-        values: |-
+        valuesObject:
           # Storage using Longhorn
           alertmanager:
             alertmanagerSpec:

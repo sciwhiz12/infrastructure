@@ -21,7 +21,7 @@ spec:
       chart: external-dns
       targetRevision: 7.5.2
       helm:
-        values: |-
+        valuesObject:
           provider: cloudflare
           cloudflare:
             secretName: cloudflare-api-token # Token should be stored under key of 'cloudflare_api_token'
