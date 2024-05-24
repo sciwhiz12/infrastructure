@@ -33,9 +33,9 @@ spec:
             ingress:
               enabled: true
               ingressClassName: {{ .Values.ingressClassName }} # Uses ingress-nginx
-              annotations:
-                nginx.ingress.kubernetes.io/force-ssl-redirect: "true" // Always use HTTPS
-                nginx.ingress.kubernetes.io/backend-protocol: "HTTP" // Use HTTP to connect to the argo-cd server
+              annotations
+                nginx.ingress.kubernetes.io/force-ssl-redirect: "true" # Always use HTTPS
+                nginx.ingress.kubernetes.io/backend-protocol: "HTTP" # Use HTTP to connect to the argo-cd server
 
     # - repoURL: {{ .Values.repository.url }}
     #   path: core/extras/argocd
