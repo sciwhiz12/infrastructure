@@ -24,7 +24,7 @@ spec:
         values: |-
           provider: cloudflare
           cloudflare:
-            secretName: cloudflare-api-token # Token should be stored under key of 'apiKey'
+            secretName: cloudflare-api-token # Token should be stored under key of 'cloudflare_api_token'
             proxied: true # Default to proxying
 
     - repoURL: {{ .Values.repository.url }}
