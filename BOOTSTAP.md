@@ -47,7 +47,7 @@ Before you begin, ensure you have [`kubectl`](https://kubernetes.io/docs/tasks/t
     kubectl port-forward service/argocd-server -n argocd 8080:80
     ```
 
-    The web interface will be using a self-signed certificate. Accept the certificate and continue to the login screen.
+    The web interface is accessible at `https://localhost:8080` will be using a self-signed certificate. Accept the certificate and continue to the login screen.
 
     The web interface has a default account with the username `admin`, and a password stored in the `argocd-initial-admin-secret` secret (under the `password` key). Run the following to obtain the password:
 
@@ -100,7 +100,7 @@ Before you begin, ensure you have [`kubectl`](https://kubernetes.io/docs/tasks/t
 
     Once finished, click the `Create` button at the top bar. Argo CD will then deploy the `core` (or `apps`) Application, and all dependents.
 
-    While deploying the `core` Application, the port-forwarding connection to the service may be interrupted as Argo CD is reconstituted under itself (as a core service). Wait for a minute or two, and then reestablish the connection to the interface by running the same command.
+    While deploying the `core` Application, the port-forwarding connection to the service may be interrupted as Argo CD is reconstituted under itself (as a core service). Wait for a minute or two, and then reestablish the connection to the interface by running the same command. The interface will be at `http://localhost:8080` instead. (Note the change from `https` to `http`.)
 
     After creating the `core` Application and waiting for all applications to finish syncing, create the `apps` Application.
 
