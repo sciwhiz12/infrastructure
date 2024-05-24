@@ -10,7 +10,6 @@ spec:
   syncPolicy:
     automated:
       prune: true
-      selfHeal: true # Sometimes the mariadb-secret might get out of sync
     syncOptions:
       - CreateNamespace=true
   destination:
