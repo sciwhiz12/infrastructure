@@ -1,1 +1,21 @@
 
+# The domain this cluster runs for
+domain: "sciwhiz12.dev"
+
+destination:
+  # The target K8s server. Unlikely to be changed.
+  server: "https://kubernetes.default.svc"
+
+repository:
+  # The online repository URL. This must match the URL used in initial configuration.
+  url: "git@github.com:sciwhiz12/infrastructure.git"
+
+# The ingress class name. Change if not using ingress-nginx.
+ingressClassName: nginx
+
+# Shlink
+shlink:
+  # The subdomain for the shlink ingress (<domainName>.<domain>)
+  domainName: links
+  # Domain override for the shlink ingress; if set, shlink.domainName is unused
+  domainOverride: ~

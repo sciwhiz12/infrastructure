@@ -1,0 +1,59 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: shlink
+  namespace: argocd
+
+spec:
+  project: applications
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+  destination:
+    server: {{ .Values.destination.server }}
+    namespace: shlink
+
+  sources:
+    - repoURL: https://christianhuth.github.io/helm-charts
+      targetRevision: 4.1.1
+      chart: shlink-backend
+      helm:
+        valuesObject:
+          image:
+            tag: 4.1.1
+
+          {{ $domain := or .Values.shlink.domainOverride (print (or .Values.shlink.domainName "links") "." (or .Values.clusterDomain .Values.domain)) }}
+          env:
+            - name: DEFAULT_DOMAIN
+              value: {{ $domain }}
+
+          mariadb:
+            enabled: true
+            auth:
+              database: shlink # Default
+
+          ingress:
+            enabled: true
+            className: {{ .Values.ingressClassName }}
+            annotations:
+              nginx.ingress.kubernetes.io/force-ssl-redirect: "true" # Always use HTTPS
+              nginx.ingress.kubernetes.io/backend-protocol: "HTTP" # Use HTTP to connect to the backend
+              cert-manager.io/cluster-issuer: "lets-encrypt-production"
+            hosts:
+              - host: {{ $domain }}
+                paths:
+                  - path: "/"
+            tls:
+              - secretName: shlink-ingress-tls
+                hosts:
+                  - {{ $domain }}
+
+    # - repoURL: {{ .Values.repository.url }}
+    #   path: apps/extras/shlink
+    #   targetRevision: HEAD
+    #   helm:
+    #     valuesObject:
+    #       domain: {{ .Values.domain }}
