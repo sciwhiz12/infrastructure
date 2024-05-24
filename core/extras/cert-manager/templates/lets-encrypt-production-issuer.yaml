@@ -7,8 +7,8 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    {{ $constructedEmail := print .emailUsername "@" .domain }}
-    email: {{ or .emailOverride $constructedEmail }}
+    {{ $constructedEmail := print .Values.emailUsername "@" .Values.domain }}
+    email: {{ or .Values.emailOverride $constructedEmail }}
     privateKeySecretRef:
       name: lets-encrypt-production-key # Store private key in this named Secret
     solvers:
