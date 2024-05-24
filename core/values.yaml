@@ -12,7 +12,7 @@ repository:
 
 # Set this to 'true' on the first install, and 'false' directly afterwards once sync finishes
 # Needed for jobs that must not run on first install (such as Longhorn's pre-upgrade job)
-firstInstall: true
+firstInstall: false
 
 # The ingress class name. Change if not using ingress-nginx.
 ingressClassName: nginx
