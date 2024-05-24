@@ -28,5 +28,5 @@ spec:
       path: core/extras/cert-manager
       targetRevision: HEAD
       helm:
-        values: |
+        valuesObject:
           domain: {{ .Values.domain }}
