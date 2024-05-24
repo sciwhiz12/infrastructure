@@ -127,3 +127,7 @@ Congratulations, the cluster is now setup correctly!
 Remember to regularly backup the sealing key for the sealed secrets, to avoid having to regenerate all sealed secrets anew. Note that the sealing key is rotated around every three months, so the backup should be automated and safely stored away.
 
 Of course, this setup needs to only be done for the first node in a cluster. Any additional nodes connected to the cluster will be managed automatically.
+
+---
+
+*P.S. This file is named as intended.*

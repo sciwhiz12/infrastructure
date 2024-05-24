@@ -3,7 +3,7 @@
 
 The infrastructure definitions for my personal/testing Kubernetes cluster, using Argo CD.
 
-For bootstrapping the cluster from a clean slate, see `BOOTSTRAP.md`.
+For bootstrapping the cluster from a clean slate, see `BOOTSTAP.md`.
 
 ## Core and Services
 
