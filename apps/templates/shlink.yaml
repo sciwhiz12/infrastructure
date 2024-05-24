@@ -35,6 +35,7 @@ spec:
             enabled: true
             auth:
               database: shlink # Default
+              rootPassword: shlink # Pin root password to a fixed value
 
           ingress:
             enabled: true
