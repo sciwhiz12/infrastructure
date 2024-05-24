@@ -3,9 +3,7 @@
 
 The infrastructure definitions for my personal/testing Kubernetes cluster, using Argo CD.
 
-## Bootstrapping
-
-**TODO.** Rough outline: install cluster (k3s), install argo-cd via Helm, add repo (w/ deploy key for private), install `core` application, install `apps` application
+For bootstrapping the cluster from a clean slate, see `BOOTSTRAP.md`.
 
 ## Core and Services
 
