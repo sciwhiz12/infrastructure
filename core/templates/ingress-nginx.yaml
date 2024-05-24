@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: ingress-nginx
+  namespace: argocd
+
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+  destination:
+    server: {{ .Values.destination.server }}
+    namespace: nginx-ingress
+
+  sources:
+    - repoURL: https://kubernetes.github.io/ingress-nginx
+      targetRevision: 4.10.1
+      chart: ingress-nginx
+      helm:
+        values: |-
+          controller:
+            service:
+              enabled: false # TODO: figure what this and hostPort does
+            metrics:
+              enabled: true # Export metrics
+            kind: DaemonSet # Run on all nodes
+            hostPort:
+              enabled: true
+              httpPort: 8080
+              httpsPort: 8443
+
+    # - repoURL: {{ .Values.repository.url }}
+    #   path: core/extras/ingress-nginx
+    #   targetRevision: HEAD
