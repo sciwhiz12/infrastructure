@@ -98,7 +98,9 @@ Before you begin, ensure you have [`kubectl`](https://kubernetes.io/docs/tasks/t
     - Enter `core` (or `apps`) for the Path field.
     - Under 'Destination', change the type from `URL` to `NAME`, then select `in-cluster`.
 
-    Once finished, click the `Create` button at the top bar. Argo CD will then deploy the `core` (or `apps`) application, and all dependents.
+    Once finished, click the `Create` button at the top bar. Argo CD will then deploy the `core` (or `apps`) Application, and all dependents.
+
+    While deploying the `core` Application, the port-forwarding connection to the service may be interrupted as Argo CD is reconstituted under itself (as a core service). Wait for a minute or two, and then reestablish the connection to the interface by running the same command.
 
     After creating the `core` Application and waiting for all applications to finish syncing, create the `apps` Application.
 
