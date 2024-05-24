@@ -10,5 +10,5 @@ spec:
     metadata:
       name: cloudflare-api-token
       namespace: cert-manager
-    labels:
-      app.kubernetes.io/part-of: cert-manager
+      labels:
+        app.kubernetes.io/part-of: cert-manager
