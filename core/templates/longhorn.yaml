@@ -55,6 +55,6 @@ spec:
             defaultReplicaCount: 1
             replicaZoneSoftAntiAffinity: true
 
-    - repoURL: {{ .Values.repository.url }}
-      path: core/extras/longhorn
-      targetRevision: HEAD
+    # - repoURL: {{ .Values.repository.url }}
+    #   path: core/extras/longhorn
+    #   targetRevision: HEAD
