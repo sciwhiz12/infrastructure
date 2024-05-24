@@ -28,6 +28,8 @@ spec:
           configs:
             params:
               server.insecure: true # Disable TLS, since we rely on our ingress for SSL
+            secret:
+              githubSecret: $github-webhook-secret:webhook-secret # Secret token for GitHub webhooks
 
           server:
             ingress:
