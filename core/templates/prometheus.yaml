@@ -1,0 +1,63 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: prometheus
+  namespace: argocd
+
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true # Required for prometheus to apply properly due to size restrictions
+  destination:
+    server: {{ .Values.destination.server }}
+    namespace: prometheus
+
+  sources:
+    - repoURL: https://prometheus-community.github.io/helm-charts
+      chart: kube-prometheus-stack
+      targetRevision: 58.7.2
+      helm:
+        values: |-
+          # Storage using Longhorn
+          alertmanager:
+            alertmanagerSpec:
+              storage:
+                volumeClaimTemplate:
+                  spec:
+                    storageClassName: longhorn
+                    accessModes: ["ReadWriteOnce"]
+                    resources:
+                      requests:
+                        storage: 5Gi
+          prometheus:
+            prometheusSpec:
+              storage:
+                volumeClaimTemplate:
+                  spec:
+                    storageClassName: longhorn
+                    accessModes: ["ReadWriteOnce"]
+                    resources:
+                      requests:
+                        storage: 20Gi
+          thanosRuler:
+            thanosRulerSpec:
+              storage:
+                volumeClaimTemplate:
+                  spec:
+                    storageClassName: longhorn
+                    accessModes: ["ReadWriteOnce"]
+                    resources:
+                      requests:
+                        storage: 10Gi
+
+          grafana:
+            enabled: false # TODO: add this in later
+
+    # - repoURL: {{ .Values.repository.url }}
+    #   path: core/extras/prometheus
+    #   targetRevision: HEAD
