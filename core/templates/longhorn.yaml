@@ -1,0 +1,60 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: longhorn
+  namespace: argocd
+
+spec:
+  project: {{ .Values.project }}
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+  destination:
+    server: {{ .Values.destination.server }}
+    namespace: longhorn-system
+
+  sources:
+    - repoURL: https://charts.longhorn.io
+      chart: longhorn
+      targetRevision: 1.6.2
+      helm:
+        parameters:
+          - name: tolerations
+            value: "dedicated-storage=true:NoSchedule"
+            # The 'dedicated-storage' taint can be declared on a node to specify it is dedicated for Longhorn storage purposes
+        values: |-
+          longhornManager:
+            tolerations:
+              - key: "dedicated-storage"
+                operator: "Equal"
+                value: "true"
+                effect: "NoSchedule"
+
+          longhornDriver:
+            tolerations:
+              - key: "dedicated-storage"
+                operator: "Equal"
+                value: "true"
+                effect: "NoSchedule"
+
+          # Set replication to one
+          persistence:
+            defaultClassReplicaCount: 1
+
+          csi:
+            attacherReplicaCount: 1
+            provisionerReplicaCount: 1
+            resizerReplicaCount: 1
+            snapshotterReplicaCount: 1
+
+          defaultSettings:
+            replicaSoftAntiAffinity: true
+            defaultReplicaCount: 1
+            replicaZoneSoftAntiAffinity: true
+
+    - repoURL: {{ .Values.repository.url }}
+      path: core/extras/longhorn
+      targetRevision: HEAD
