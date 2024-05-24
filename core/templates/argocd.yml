@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: argocd
+  namespace: argocd
+
+spec:
+  project: core-services
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+  destination:
+    server: {{ .Values.destination.server }}
+    namespace: argocd
+
+  sources:
+    - repoURL: https://argoproj.github.io/argo-helm
+      targetRevision: 6.10.2
+      chart: argo-cd
+
+    # - repoURL: {{ .Values.repository.url }}
+    #   path: core/extras/argocd
+    #   targetRevision: HEAD
