@@ -21,10 +21,10 @@ Before you begin, ensure you have [`kubectl`](https://kubernetes.io/docs/tasks/t
 
 1. **Prepare the server node.** This guide assumes the use of [k3s](https://docs.k3s.io/), a lightweight and production-ready Kubernetes distribution.
 
-    To install as a standalone cluster (or as first node in a cluster), run the following command:
+    To install as a standalone cluster (or as first node in a cluster) without Traefik (ingress and load balancer), run the following command:
 
     ```sh
-    curl -sfL https://get.k3s.io | sh -
+    curl -sfL https://get.k3s.io | sh - --disable traefik
     ```
 
     Obtain the Kubernetes config from `/etc/rancher/k3s/k3s.yaml` (to use locally). Remember to ensure the cluster URL points to the actual cluster's URL. Configure `kubectl` to use that cluster (and by extension, so will `helm` and `kubeseal`.)
