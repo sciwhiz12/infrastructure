@@ -18,5 +18,5 @@ spec:
           # Note that an API token is different from a user's (global) API Key
           cloudflare:
             apiTokenSecretRef:
-              name: cloudflare-api-token-secret
+              name: cloudflare-api-token
               key: api-token
