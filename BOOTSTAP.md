@@ -96,7 +96,7 @@ Before you begin, ensure you have [`kubectl`](https://kubernetes.io/docs/tasks/t
     - Select the previously-added repository for the Repository URL field.
     - Ensure the Revision field is set to `HEAD`.
     - Enter `core` (or `apps`) for the Path field.
-    - Select the one available option for the Cluster URL field.
+    - Under 'Destination', change the type from `URL` to `NAME`, then select `in-cluster`.
 
     Once finished, click the `Create` button at the top bar. Argo CD will then deploy the `core` (or `apps`) application, and all dependents.
 
