@@ -116,6 +116,10 @@ Before you begin, ensure you have [`kubectl`](https://kubernetes.io/docs/tasks/t
 
     If the setup is correct, after a few moments, a green checkmark should appear next to the webhook.
 
+9. **Reset the settings in this repository back to normal.**
+
+    Change back the `firstInstall` key in `core/values.yaml` to `false`.
+
 ## Conclusion
 
 Congratulations, the cluster is now setup correctly!
