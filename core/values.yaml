@@ -1,4 +1,7 @@
 
+# The domain this cluster runs for
+domain: "sciwhiz12.dev"
+
 destination:
   # The target K8s server. Unlikely to be changed.
   server: "https://kubernetes.default.svc"

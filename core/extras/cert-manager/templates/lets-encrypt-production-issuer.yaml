@@ -1,0 +1,22 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+
+metadata:
+  name: lets-encrypt-production
+
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    {{ $constructedEmail := print .emailUsername "@" .domain }}
+    email: {{ or .emailOverride $constructedEmail }}
+    privateKeySecretRef:
+      name: lets-encrypt-production-key # Store private key in this named Secret
+    solvers:
+      - dns01:
+          # Assuming DNS management is done through Cloudflare
+          # The API token should have Zone:Zone:Edit and Zone:Zone:Read, and scoped however you want
+          # Note that an API token is different from a user's (global) API Key
+          cloudflare:
+            apiTokenSecretRef:
+              name: cloudflare-api-token-secret
+              key: api-token
