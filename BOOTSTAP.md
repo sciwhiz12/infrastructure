@@ -118,7 +118,7 @@ Before you begin, ensure you have [`kubectl`](https://kubernetes.io/docs/tasks/t
     - Select `Just the push event` for the events that will trigger the webhook.
     - Ensure the `Active` checkbox and the `Enable SSL verification` radio button are selected.
 
-    If the setup is correct, after a few moments, a green checkmark should appear next to the webhook.
+    You may need to restart the Argo CD server (`argocd-server`) before the webhook will deliver successfully.
 
 9. **Reset the settings in this repository back to normal.**
 
