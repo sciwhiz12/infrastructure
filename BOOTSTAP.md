@@ -91,7 +91,7 @@ Before you begin, ensure you have [`kubectl`](https://kubernetes.io/docs/tasks/t
 
     - Enter `core` (or `apps`) for the Application Name field.
     - Enter `default` for the Project Name field.
-    - Select `Automatic` for the Sync Policy dropdown.
+    - Select `Automatic` for the Sync Policy dropdown, and tick the `Prune Resources` checkbox that appears afterwards.
     - Tick the `Auto-Create Namespace` checkbox.
     - Select the previously-added repository for the Repository URL field.
     - Ensure the Revision field is set to `HEAD`.
