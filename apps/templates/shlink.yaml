@@ -46,6 +46,7 @@ spec:
               - host: {{ $domain }}
                 paths:
                   - path: "/"
+                    pathType: Prefix
             tls:
               - secretName: shlink-ingress-tls
                 hosts:
