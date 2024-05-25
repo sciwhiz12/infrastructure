@@ -80,4 +80,5 @@ spec:
         valuesObject:
           auth:
             username: vaultwarden
+            database: vaultwarden
             existingSecret: mariadb-secrets
