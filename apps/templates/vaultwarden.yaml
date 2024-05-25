@@ -50,7 +50,20 @@ spec:
           ingress:
             enabled: true
             class: {{ .Values.ingressClassName }}
-            additionalAnnotations:
+            # Chart adds the configuration-snippet nginx annotation, which is normally disabled
+            # Add the annotations ourselves manually to compensate
+            nginxIngressAnnotations: false
+            additionalAnnotations:          
+              nginx.ingress.kubernetes.io/connection-proxy-header: "keep-alive"
+              nginx.ingress.kubernetes.io/enable-cors: "true"
+              nginx.ingress.kubernetes.io/limit-connections: "25"
+              nginx.ingress.kubernetes.io/limit-rps: "15"
+              nginx.ingress.kubernetes.io/proxy-body-size: 1024m
+              nginx.ingress.kubernetes.io/proxy-connect-timeout: "10"
+              nginx.ingress.kubernetes.io/proxy-send-timeout: "1800"
+              nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
+              nginx.ingress.kubernetes.io/ssl-redirect: "true"
+              nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
               cert-manager.io/cluster-issuer: "lets-encrypt-production"
             hostname: {{ $domain }}
             tlsSecret: vaultwarden-ingress-tls
