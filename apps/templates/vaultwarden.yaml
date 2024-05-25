@@ -45,7 +45,7 @@ spec:
             class: longhorn
             keepPvc: true
 
-          {{ $domain := or .Values.shlink.domainOverride (print (or .Values.shlink.domainName "links") "." (or .Values.clusterDomain .Values.domain)) }}
+          {{ $domain := or .Values.vaultwarden.domainOverride (print (or .Values.vaultwarden.domainName "vault") "." (or .Values.clusterDomain .Values.domain)) }}
           domain: {{ print "https://" $domain }}
           ingress:
             enabled: true
