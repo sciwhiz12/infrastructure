@@ -32,18 +32,11 @@ spec:
             existingSecret: vaultwarden-admin-token
             existingSecretKey: ADMIN_TOKEN
 
-          data: # Data directory
+          data: # Data volume
             name: vaultwarden-data
-            size: 10Gi
+            size: 15Gi
             path: /data
             class: longhorn
-
-          attachments: # Attachments directory
-            name: vaultwarden-files
-            size: 15Gi
-            path: /files
-            class: longhorn
-            keepPvc: true
 
           {{ $domain := or .Values.vaultwarden.domainOverride (print (or .Values.vaultwarden.domainName "vault") "." (or .Values.clusterDomain .Values.domain)) }}
           domain: {{ print "https://" $domain }}
