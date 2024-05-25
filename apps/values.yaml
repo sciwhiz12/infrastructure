@@ -19,3 +19,10 @@ shlink:
   domainName: links
   # Domain override for the shlink ingress; if set, shlink.domainName is unused
   domainOverride: ~
+
+# Vaultwarden
+vaultwarden:
+  # The subdomain for the vaultwarden ingress (<domainName>.<domain>)
+  domainName: vault
+  # Domain override for the vaultwarden ingress; if set, vaultwarden.domainName is unused
+  domainOverride: ~

@@ -1,0 +1,63 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: vaultwarden
+  namespace: argocd
+
+spec:
+  project: applications
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+  destination:
+    server: {{ .Values.destination.server }}
+    namespace: vaultwarden
+
+  sources:
+    - repoURL: https://guerzon.github.io/vaultwarden
+      targetRevision: 0.22.7
+      chart: vaultwarden
+      helm:
+        valuesObject:
+          image:
+            tag: 1.30.5-alpine
+
+          signupsAllowed: false # Disallow users from self-registering
+          emailChangeAllowed: false # Disallowe users from changing their own email
+          showPassHint: false # Disable login password hints
+          adminToken:
+            existingSecret: vaultwarden-admin-token
+            existingSecretKey: ADMIN_TOKEN
+
+          data: # Data directory
+            name: vaultwarden-data
+            size: 10Gi
+            path: /data
+            class: longhorn
+
+          attachments: # Attachments directory
+            name: vaultwarden-files
+            size: 15Gi
+            path: /files
+            class: longhorn
+            keepPvc: true
+
+          {{ $domain := or .Values.shlink.domainOverride (print (or .Values.shlink.domainName "links") "." (or .Values.clusterDomain .Values.domain)) }}
+          domain: {{ print "https://" $domain }}
+          ingress:
+            enabled: true
+            class: {{ .Values.ingressClassName }}
+            additionalAnnotations:
+              cert-manager.io/cluster-issuer: "lets-encrypt-production"
+            hostname: {{ $domain }}
+            tlsSecret: vaultwarden-ingress-tls
+
+    - repoURL: {{ .Values.repository.url }}
+      path: apps/extras/vaultwarden
+      targetRevision: HEAD
+      helm:
+        valuesObject:
+          domain: {{ .Values.domain }}

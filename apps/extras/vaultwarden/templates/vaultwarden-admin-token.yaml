@@ -1,0 +1,14 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: vaultwarden-admin-token
+  namespace: vaultwarden
+spec:
+  encryptedData:
+    ADMIN_TOKEN: AgBJF5bbRh7eFapKShovKnanHoT4c4F5xcJBaUDjjMAfsRA74SESzZghREWJ0GLLu2KgVsaLKAOdLDHq80JWpUXo6twnXJbliUnTOGF8membKNesH7TDUF6DegpN2n84DD2/1ZfZNmy9I9eVRYhJX5wFv1l9cKCrZCi7KVCThUFK1XBiCa8Mn+7xOO1TvnelxJW3M0MVEgII2jDtEoj1hTZhWWFkS7xr68ueNhsF8v+H9v2ze9VuzegRgmk1tTgOpwqv/AuhCuIBdNShwDSXDk/fCIycbXJFkn2kfm8ScbLvgN63MfiTTGTDxpiCUlvII35kuMNY0Cxo66O0fkCPHO+RPia3CKqUhpzGp0j63NGeRPSWnmoaSLIct9aA4EoE557epZ6VJJFYxmlYARWx64N0TiLaT5/g2XHygsyHcYaQ+G7TVlLzB7DP3hO4mtR5LDXxu44f46q7iVz44JSqjbUTIhLH0RBrgYL+0Q1HoAdLckF1Ju1sN8fX0rhWGSm7f0pZW6ngY+YZK1yz/Iyk47XKrIXDCZKbtGgBJy7v2itucNhffPl3EX0fPEKdFAMBM16CueJqbx0u66LrpJNEjOkVzd9nRtwDoPMu+nP+J5jolqovNFfKsoClUeE1LLtmcHMZ1HBzgvXkJXB8ETil2h/LdrLFOHLD+wKLrGfqPzO6r08wh5+243FwBul/R++rJ8Ad1HtmNdUQCzdZ/xGWdwbZcI3LeM7yKyDmcBVEv53UCQ==
+  template:
+    metadata:
+      name: vaultwarden-admin-token
+      namespace: vaultwarden
+      labels:
+        app.kubernetes.io/part-of: vaultwarden
