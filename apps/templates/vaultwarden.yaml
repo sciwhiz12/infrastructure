@@ -72,8 +72,12 @@ spec:
       helm:
         valuesObject:
           domain: {{ .Values.domain }}
-          mariadb:
-            enabled: true # Enable the mariadb chart
-            auth:
-              username: vaultwarden
-              existingSecret: mariadb-secrets
+
+    - repoURL: registry-1.docker.io/bitnamicharts
+      targetRevision: 18.2.0
+      chart: mariadb
+      helm:
+        valuesObject:
+          auth:
+            username: vaultwarden
+            existingSecret: mariadb-secrets
