@@ -39,7 +39,7 @@ spec:
             class: longhorn
 
           database: # Use separate database
-            type: mariadb
+            type: mysql
             existingSecret: mariadb-secrets
             existingSecretKey: database-url
 
