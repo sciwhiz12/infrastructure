@@ -38,6 +38,11 @@ spec:
             path: /data
             class: longhorn
 
+          database: # Use separate database
+            type: mariadb
+            existingSecret: mariadb-secrets
+            existingSecretKey: database-url
+
           {{ $domain := or .Values.vaultwarden.domainOverride (print (or .Values.vaultwarden.domainName "vault") "." (or .Values.clusterDomain .Values.domain)) }}
           domain: {{ print "https://" $domain }}
           ingress:
@@ -67,3 +72,8 @@ spec:
       helm:
         valuesObject:
           domain: {{ .Values.domain }}
+          mariadb:
+            enabled: true # Enable the mariadb chart
+            auth:
+              username: vaultwarden
+              existingSecret: mariadb-secrets
