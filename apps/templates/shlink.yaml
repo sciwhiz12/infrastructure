@@ -33,8 +33,7 @@ spec:
           mariadb:
             enabled: true
             auth:
-              database: shlink # Default
-              rootPassword: shlink # Pin root password to a fixed value
+              existingSecret: mariadb-secrets
 
           ingress:
             enabled: true
@@ -53,9 +52,9 @@ spec:
                 hosts:
                   - {{ $domain }}
 
-    # - repoURL: {{ .Values.repository.url }}
-    #   path: apps/extras/shlink
-    #   targetRevision: HEAD
-    #   helm:
-    #     valuesObject:
-    #       domain: {{ .Values.domain }}
+    - repoURL: {{ .Values.repository.url }}
+      path: apps/extras/shlink
+      targetRevision: HEAD
+      helm:
+        valuesObject:
+          domain: {{ .Values.domain }}
