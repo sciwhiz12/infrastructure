@@ -31,24 +31,23 @@ spec:
               server.insecure: true # Disable TLS, since we rely on our ingress for SSL
             secret:
               githubSecret: $github-webhook-secret:webhook-secret # Secret token for GitHub webhooks
-
-          cm:
-            url: https://{{- $domain }}
-            exec.enabled: true
-            dex.config: |
-              connectors:
-                - type: github
-                  id: github
-                  name: GitHub
-                  config:
-                    clientID: Ov23lifU6cCqwFHcbMhL
-                    clientSecret: $github-oauth-app:client-secret
-                    orgs:
-                      - name: sciwhizlabs
-            rbac: 
-              policy.csv: |
-                g, sciwhizlabs:infrastructure, role:admin
-              policy.default: role:readonly
+            cm:
+              url: https://{{- $domain }}
+              exec.enabled: true
+              dex.config: |
+                connectors:
+                  - type: github
+                    id: github
+                    name: GitHub
+                    config:
+                      clientID: Ov23lifU6cCqwFHcbMhL
+                      clientSecret: $github-oauth-app:client-secret
+                      orgs:
+                        - name: sciwhizlabs
+              rbac: 
+                policy.csv: |
+                  g, sciwhizlabs:infrastructure, role:admin
+                policy.default: role:readonly
 
           server:
             ingress:
