@@ -1,0 +1,52 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: persistent-runner
+  namespace: argocd
+
+spec:
+  project: applications
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+  destination:
+    server: {{ .Values.destination.server }}
+    namespace: arc-runners
+
+  sources:
+    - repoURL: ghcr.io/actions/actions-runner-controller-charts
+      chart: gha-runner-scale-set
+      targetRevision: 0.9.2
+      helm:
+        releaseName: persistent-runner
+        valuesObject:
+          githubConfigUrl: https://github.com/sciwhiz12
+          githubConfigSecret: github-auth-secret
+
+          # Keep exactly one runner alive
+          maxRunners: 1
+          minRunners: 1
+
+          containerMode:
+            type: "kubernetes"
+
+          template:
+            spec:
+              volumes:
+                - name: work
+                  persistentVolumeClaim:
+                    claimName: persistent-runner-work
+
+          controllerServiceAccount:
+            namespace: arc-systems
+            name: actions-runner-controller-gha-rs-controller
+
+    - repoURL: {{ .Values.repository.url }}
+      path: apps/extras/persistent-runner
+      targetRevision: HEAD
+      helm:
+        valuesObject:
+          domain: {{ .Values.domain }}

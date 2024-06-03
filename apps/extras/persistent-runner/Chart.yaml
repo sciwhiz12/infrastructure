@@ -1,0 +1,6 @@
+apiVersion: v2
+name: persistent-runner
+description: Extra definitions for persistent-runner
+
+type: application
+version: 1.0.0
