@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: gatekeeper
+  namespace: argocd
+
+spec:
+  project: core-services
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+  destination:
+    server: {{ .Values.destination.server }}
+    namespace: gatekeeper-system
+
+  sources:
+    - repoURL: https://open-policy-agent.github.io/gatekeeper/charts
+      targetRevision: 3.16.3
+      chart: gatekeeper
+
+    # - repoURL: {{ .Values.repository.url }}
+    #   path: core/extras/gatekeeper
+    #   targetRevision: HEAD
+    #   helm:
+    #     valuesObject:
+    #       domain: {{ .Values.domain }}
