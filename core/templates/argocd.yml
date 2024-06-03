@@ -44,10 +44,10 @@ spec:
                       teamNameField: slug
                       orgs:
                         - name: sciwhizlabs
-              rbac: 
-                policy.csv: |
-                  g, sciwhizlabs:infrastructure, role:admin
-                policy.default: role:readonly
+            rbac: 
+              policy.csv: |
+                g, sciwhizlabs:infrastructure, role:admin
+              policy.default: role:readonly
 
           server:
             ingress:
