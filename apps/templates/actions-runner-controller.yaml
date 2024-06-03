@@ -12,6 +12,8 @@ spec:
       prune: true
     syncOptions:
       - CreateNamespace=true
+      # CRDs are too large to fit in last-applied-configuration annotation
+      - ServerSideApply=true
   destination:
     server: {{ .Values.destination.server }}
     namespace: arc-systems
