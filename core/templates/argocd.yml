@@ -23,7 +23,8 @@ spec:
       helm:
         valuesObject:
           global:
-            domain: {{ or .Values.argo.domainOverride (print (or .Values.argo.domainName "argo") "." (or .Values.clusterDomain .Values.domain)) }}
+            {{ $domain := or .Values.argo.domainOverride (print (or .Values.argo.domainName "argo") "." (or .Values.clusterDomain .Values.domain)) }}
+            domain: {{ $domain }}
 
           configs:
             params:
@@ -32,6 +33,7 @@ spec:
               githubSecret: $github-webhook-secret:webhook-secret # Secret token for GitHub webhooks
 
           cm:
+            url: https://{{- $domain }}
             exec.enabled: true
             dex.config: |
               connectors:
