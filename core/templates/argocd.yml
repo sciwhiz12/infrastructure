@@ -32,7 +32,6 @@ spec:
             secret:
               githubSecret: $github-webhook-secret:webhook-secret # Secret token for GitHub webhooks
             cm:
-              url: https://{{- $domain }}
               exec.enabled: true
               dex.config: |
                 connectors:
