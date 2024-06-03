@@ -41,6 +41,7 @@ spec:
                     config:
                       clientID: Ov23lifU6cCqwFHcbMhL
                       clientSecret: $github-oauth-app:client-secret
+                      teamNameField: slug
                       orgs:
                         - name: sciwhizlabs
               rbac: 
