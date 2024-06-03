@@ -23,7 +23,7 @@ spec:
       helm:
         releaseName: persistent-runner
         valuesObject:
-          githubConfigUrl: https://github.com/sciwhiz12
+          githubConfigUrl: https://github.com/sciwhizlabs
           githubConfigSecret: github-auth-secret
 
           # Keep exactly one runner alive
