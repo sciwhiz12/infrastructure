@@ -16,6 +16,11 @@ spec:
     server: {{ .Values.destination.server }}
     namespace: arc-runners
 
+  ignoreDifferences:
+    - kind: RoleBinding
+      jqPathExpressions:
+        - '.'
+
   sources:
     - repoURL: ghcr.io/actions/actions-runner-controller-charts
       chart: gha-runner-scale-set
