@@ -44,6 +44,9 @@ spec:
             namespace: arc-systems
             name: actions-runner-controller-gha-rs-controller
 
+      kustomize:
+        namespace: persistent-runner
+
     - repoURL: {{ .Values.repository.url }}
       path: apps/extras/persistent-runner
       targetRevision: HEAD
