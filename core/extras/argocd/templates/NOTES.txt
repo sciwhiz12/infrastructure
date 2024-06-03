@@ -1,0 +1,3 @@
+
+The OAuth app's callback must be set to "https://<domain>/api/dex/callback" (and not
+"https://<domain>/auth/callback"), due to the use of Dex for authentication.
