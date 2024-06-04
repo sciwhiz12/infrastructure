@@ -7,7 +7,7 @@ spec:
     scope: Namespaced
     name: persistent-runner-*
     namespaces:
-      - {{ Release.Namespace }}
+      - {{ .Release.Namespace }}
     kinds:
       - apiGroups: ["*"]
         kinds:
@@ -33,7 +33,7 @@ spec:
     scope: Namespaced
     name: persistent-runner-*
     namespaces:
-      - {{ Release.Namespace }}
+      - {{ .Release.Namespace }}
     kinds:
       - apiGroups: ["*"]
         kinds:
