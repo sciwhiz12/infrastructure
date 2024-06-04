@@ -8,12 +8,6 @@ spec:
     name: persistent-runner-*
     namespaces:
       - {{ .Release.Namespace }}
-    kinds:
-      - apiGroups: ["*"]
-        kinds:
-          - AutoscalingListener
-          - Role
-          - RoleBinding
     labelSelector:
       matchExpressions:
         - key: "actions.github.com/scale-set-name"
@@ -34,12 +28,6 @@ spec:
     name: persistent-runner-*
     namespaces:
       - {{ .Release.Namespace }}
-    kinds:
-      - apiGroups: ["*"]
-        kinds:
-          - AutoscalingListener
-          - Role
-          - RoleBinding
     labelSelector:
       matchExpressions:
         - key: "actions.github.com/scale-set-name"
