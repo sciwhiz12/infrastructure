@@ -10,9 +10,9 @@ spec:
       - {{ .Release.Namespace }}
     labelSelector:
       matchExpressions:
-        - key: "actions.github.com/scale-set-name"
-          operator: "Exists"
-          values: []
+        - key: "app.kubernetes.io/part-of"
+          operator: "In"
+          values: ["gha-runner-scale-set"]
   location: 'metadata.annotations."argocd.argoproj.io/sync-options"'
   parameters:
     assign:
@@ -30,9 +30,9 @@ spec:
       - {{ .Release.Namespace }}
     labelSelector:
       matchExpressions:
-        - key: "actions.github.com/scale-set-name"
-          operator: "Exists"
-          values: []
+        - key: "app.kubernetes.io/part-of"
+          operator: "In"
+          values: ["gha-runner-scale-set"]
   location: 'metadata.annotations."argocd.argoproj.io/compare-options"'
   parameters:
     assign:
