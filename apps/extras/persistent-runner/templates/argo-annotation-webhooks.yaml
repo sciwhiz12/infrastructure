@@ -16,9 +16,9 @@ spec:
           - RoleBinding
     labelSelector:
       matchExpressions:
-        key: "actions.github.com/scale-set-name"
-        operator: "Exists"
-        values: []
+        - key: "actions.github.com/scale-set-name"
+          operator: "Exists"
+          values: []
   location: metadata.annotations["argocd.argoproj.io/sync-options"]
   parameters:
     assign:
