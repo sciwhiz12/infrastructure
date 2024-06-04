@@ -27,7 +27,7 @@ spec:
 apiVersion: mutations.gatekeeper.sh/v1
 kind: AssignMetadata
 metadata:
-  name: argo-prune-annotation-webhook
+  name: argo-compare-annotation-webhook
 spec:
   match:
     scope: Namespaced
