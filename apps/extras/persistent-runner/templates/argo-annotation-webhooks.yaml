@@ -19,7 +19,7 @@ spec:
         - key: "actions.github.com/scale-set-name"
           operator: "Exists"
           values: []
-  location: metadata.annotations["argocd.argoproj.io/sync-options"]
+  location: 'metadata.annotations."argocd.argoproj.io/sync-options"'
   parameters:
     assign:
       value: "Prune=false"
@@ -45,7 +45,7 @@ spec:
         - key: "actions.github.com/scale-set-name"
           operator: "Exists"
           values: []
-  location: metadata.annotations["argocd.argoproj.io/compare-options"]
+  location: 'metadata.annotations."argocd.argoproj.io/compare-options"'
   parameters:
     assign:
       value: "IgnoreExtraneous"
