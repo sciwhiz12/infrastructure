@@ -46,7 +46,8 @@ spec:
                     claimName: persistent-runner-work
 
           controllerServiceAccount:
-            namespace: arc-systems
+            {{ $controllerNamespace := "arc-systems" }}
+            namespace: {{ $controllerNamespace }}
             name: actions-runner-controller-gha-rs-controller
 
     - repoURL: {{ .Values.repository.url }}
@@ -54,4 +55,4 @@ spec:
       targetRevision: HEAD
       helm:
         valuesObject:
-          domain: {{ .Values.domain }}
+          controllerNamespace: {{ $controllerNamespace }}
