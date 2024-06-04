@@ -1,0 +1,51 @@
+apiVersion: mutations.gatekeeper.sh/v1
+kind: AssignMetadata
+metadata:
+  name: argo-prune-annotation-webhook
+spec:
+  match:
+    scope: Namespaced
+    name: persistent-runner-*
+    namespaces:
+      - {{ Release.Namespace }}
+    kinds:
+      - apiGroups: ["*"]
+        kinds:
+          - AutoscalingListener
+          - Role
+          - RoleBinding
+    labelSelector:
+      matchExpressions:
+        key: "actions.github.com/scale-set-name"
+        operator: "Exists"
+        values: []
+  location: metadata.annotations["argocd.argoproj.io/sync-options"]
+  parameters:
+    assign:
+      value: "Prune=false"
+---
+apiVersion: mutations.gatekeeper.sh/v1
+kind: AssignMetadata
+metadata:
+  name: argo-prune-annotation-webhook
+spec:
+  match:
+    scope: Namespaced
+    name: persistent-runner-*
+    namespaces:
+      - {{ Release.Namespace }}
+    kinds:
+      - apiGroups: ["*"]
+        kinds:
+          - AutoscalingListener
+          - Role
+          - RoleBinding
+    labelSelector:
+      matchExpressions:
+        key: "actions.github.com/scale-set-name"
+        operator: "Exists"
+        values: []
+  location: metadata.annotations["argocd.argoproj.io/compare-options"]
+  parameters:
+    assign:
+      value: "IgnoreExtraneous"
