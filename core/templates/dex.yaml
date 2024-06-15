@@ -47,6 +47,9 @@ spec:
                 {{ $argoDomain := or .Values.argo.domainOverride (print (or .Values.argo.domainName "argo") "." (or .Values.clusterDomain .Values.domain)) }}
                 redirectURIs:
                   - https://{{ $argoDomain }}/auth/callback
+              - id: kubernetes-access
+                public: true # Publicly accessible, to avoid passing around client secrets
+                name: Kubernetes Access
             oauth2:
               skipApprovalScreen: true
 
