@@ -23,3 +23,10 @@ argo:
   domainName: argo
   # Domain override for the Argo ingress; if set, argo.domainName is unused
   domainOverride: ~
+
+# Dex (auth)
+dex:
+  # The subdomain for the Dex ingress (<domainName>.<domain>)
+  domainName: auth
+  # Domain override for the Dex ingress; if set, dex.domainName is unused
+  domainOverride: ~

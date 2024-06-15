@@ -1,0 +1,56 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: dex
+  namespace: argocd
+
+spec:
+  project: core-services
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+  destination:
+    server: {{ .Values.destination.server }}
+    namespace: dex
+
+  sources:
+    - repoURL: https://charts.dexidp.io
+      targetRevision: 0.18.0
+      chart: dex
+      helm:
+        valuesObject:
+          {{ $domain := or .Values.dex.domainOverride (print (or .Values.dex.domainName "auth") "." (or .Values.clusterDomain .Values.domain)) }}
+          ingress:
+            enabled: true
+            className: {{ .Values.ingressClassName }} # Uses ingress-nginx
+            hosts:
+              - host: {{ $domain }}
+                paths:
+                  - path: /
+            annotations:
+              cert-manager.io/cluster-issuer: "lets-encrypt-production"
+            tls:
+              - hosts:
+                  - {{ $domain }}
+                secretName: dex-ingress-cert
+            connectors:
+              - type: github
+                id: github
+                name: GitHub
+                config:
+                  clientID: $github-oauth-app:client-id
+                  clientSecret: $github-oauth-app:client-secret
+                  redirectURI: https://{{ $domain }}/callback
+                  orgs:
+                    - name: sciwhizlabs
+                  teamNameField: slug # Use team slugs instead of name
+
+    - repoURL: {{ .Values.repository.url }}
+      path: core/extras/dex
+      targetRevision: HEAD
+      helm:
+        valuesObject:
+          domain: {{ .Values.domain }}
