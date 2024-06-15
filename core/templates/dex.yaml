@@ -23,6 +23,13 @@ spec:
       helm:
         valuesObject:
           {{ $domain := or .Values.dex.domainOverride (print (or .Values.dex.domainName "auth") "." (or .Values.clusterDomain .Values.domain)) }}
+          config:
+            issuer: https://{{ $domain }}
+            storage:
+              type: kubernetes
+              config:
+                inCluster: true
+
           ingress:
             enabled: true
             className: {{ .Values.ingressClassName }} # Uses ingress-nginx
