@@ -42,7 +42,7 @@ spec:
                   teamNameField: slug # Use team slugs instead of name
             staticClients:
               - id: argocd
-                secret: $ARGOCD_CLIENT_SECRET
+                secretEnv: ARGOCD_CLIENT_SECRET
                 name: Argo CD
                 {{ $argoDomain := or .Values.argo.domainOverride (print (or .Values.argo.domainName "argo") "." (or .Values.clusterDomain .Values.domain)) }}
                 redirectURIs:
