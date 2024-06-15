@@ -29,6 +29,17 @@ spec:
               type: kubernetes
               config:
                 inCluster: true
+            connectors:
+              - type: github
+                id: github
+                name: GitHub
+                config:
+                  clientID: $github-oauth-app:client-id
+                  clientSecret: $github-oauth-app:client-secret
+                  redirectURI: https://{{ $domain }}/callback
+                  orgs:
+                    - name: sciwhizlabs
+                  teamNameField: slug # Use team slugs instead of name
 
           ingress:
             enabled: true
@@ -44,17 +55,6 @@ spec:
               - hosts:
                   - {{ $domain }}
                 secretName: dex-ingress-cert
-            connectors:
-              - type: github
-                id: github
-                name: GitHub
-                config:
-                  clientID: $github-oauth-app:client-id
-                  clientSecret: $github-oauth-app:client-secret
-                  redirectURI: https://{{ $domain }}/callback
-                  orgs:
-                    - name: sciwhizlabs
-                  teamNameField: slug # Use team slugs instead of name
 
     - repoURL: {{ .Values.repository.url }}
       path: core/extras/dex
