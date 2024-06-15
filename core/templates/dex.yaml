@@ -40,6 +40,12 @@ spec:
                   orgs:
                     - name: sciwhizlabs
                   teamNameField: slug # Use team slugs instead of name
+            staticClients:
+              - id: argocd
+                secret: $ARGOCD_CLIENT_SECRET
+                name: Argo CD
+                redirectURIs:
+                  - https://{{ $domain }}/auth/callback
 
           ingress:
             enabled: true
@@ -66,6 +72,11 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: github-oauth-app
+                  key: client-secret
+            - name: ARGOCD_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: argocd-dex-secret
                   key: client-secret
 
     - repoURL: {{ .Values.repository.url }}

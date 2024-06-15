@@ -26,6 +26,7 @@ spec:
             {{ $domain := or .Values.argo.domainOverride (print (or .Values.argo.domainName "argo") "." (or .Values.clusterDomain .Values.domain)) }}
             domain: {{ $domain }}
 
+          {{ $authDomain := or .Values.dex.domainOverride (print (or .Values.dex.domainName "auth") "." (or .Values.clusterDomain .Values.domain)) }}
           configs:
             params:
               server.insecure: true # Disable TLS, since we rely on our ingress for SSL
@@ -34,17 +35,11 @@ spec:
             cm:
               admin.enabled: false # Disbale built-in admin user
               exec.enabled: true
-              dex.config: |
-                connectors:
-                  - type: github
-                    id: github
-                    name: GitHub
-                    config:
-                      clientID: Ov23lifU6cCqwFHcbMhL
-                      clientSecret: $github-oauth-app:client-secret
-                      teamNameField: slug
-                      orgs:
-                        - name: sciwhizlabs
+              oidc.config: |
+                name: Dex
+                issuer: https://{{ $authDomain }}
+                clientID: argocd # Must match the configured staticClients[].id in Dex
+                clientSecret: $argocd-dex-secret:client-secret
             rbac: 
               policy.csv: |
                 g, sciwhizlabs:infrastructure, role:admin
