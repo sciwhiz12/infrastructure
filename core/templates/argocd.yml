@@ -39,7 +39,7 @@ spec:
                 name: Dex
                 issuer: https://{{ $authDomain }}
                 clientID: argocd # Must match the configured staticClients[].id in Dex
-                clientSecret: argocd-secret # $argocd-dex-secret:client-secret
+                clientSecret: $argocd-dex-secret:client-secret
             rbac: 
               policy.csv: |
                 g, sciwhizlabs:infrastructure, role:admin
