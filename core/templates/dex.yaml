@@ -30,6 +30,7 @@ spec:
               - host: {{ $domain }}
                 paths:
                   - path: /
+                    pathType: Prefix
             annotations:
               cert-manager.io/cluster-issuer: "lets-encrypt-production"
             tls:
