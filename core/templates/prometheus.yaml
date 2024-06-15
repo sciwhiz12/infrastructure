@@ -61,3 +61,17 @@ spec:
     # - repoURL: {{ .Values.repository.url }}
     #   path: core/extras/prometheus
     #   targetRevision: HEAD
+
+  ignoreDifferences:
+    - group: apps
+      kind: "*"
+      jqPathExpressions:
+        - ".spec.template.spec.containers[].resources"
+    - group: apps
+      kind: "*"
+      jqPathExpressions:
+        - ".spec.template.spec.initContainers[].resources"
+    - group: admissionregistration.k8s.io
+      kind: "*"
+      jqPathExpressions:
+        - ".webhooks[].clientConfig.caBundle"
