@@ -56,7 +56,7 @@ spec:
                   - {{ $domain }}
                 secretName: dex-ingress-cert
 
-          env:
+          envVars:
             - name: GITHUB_OAUTH_CLIENT_ID
               valueFrom:
                 secretKeyRef:
