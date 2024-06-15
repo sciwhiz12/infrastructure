@@ -47,6 +47,8 @@ spec:
                 {{ $argoDomain := or .Values.argo.domainOverride (print (or .Values.argo.domainName "argo") "." (or .Values.clusterDomain .Values.domain)) }}
                 redirectURIs:
                   - https://{{ $argoDomain }}/auth/callback
+            oauth2:
+              skipApprovalScreen: true
 
           ingress:
             enabled: true
