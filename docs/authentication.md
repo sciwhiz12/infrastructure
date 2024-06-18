@@ -20,7 +20,14 @@ To gain `kubectl` access to the cluster:
 2. Run the following command to test access to the user:
 
     ```bash
-    kubectl oidc-login setup --oidc-issuer-url=https://auth.sciwhiz12.dev --oidc-client-id=kubernetes-access
+    kubectl oidc-login setup \
+    --oidc-issuer-url=https://auth.sciwhiz12.dev \
+    --oidc-client-id=kubernetes-access \
+    --oidc-extra-scope=groups \
+    --oidc-extra-scope=email
+
+    # As a oneliner
+    kubectl oidc-login setup --oidc-issuer-url=https://auth.sciwhiz12.dev --oidc-client-id=kubernetes-access --oidc-extra-scope=groups --oidc-extra-scope=email
     ```
 
     The command will open up a browser window (or prompt with a link to open in a browser window) to continue authentication with GitHub.
@@ -36,7 +43,12 @@ To gain `kubectl` access to the cluster:
     --exec-arg=oidc-login \
     --exec-arg=get-token \
     --exec-arg=--oidc-issuer-url=https://auth.sciwhiz12.dev \
-    --exec-arg=--oidc-client-id=kubernetes-access
+    --exec-arg=--oidc-client-id=kubernetes-access \
+    --exec-arg=--oidc-extra-scope=groups \
+    --exec-arg=--oidc-extra-scope=email
+
+    # As a one-liner
+    kubectl config set-credentials oidc --exec-api-version=client.authentication.k8s.io/v1beta1 --exec-command=kubectl --exec-arg=oidc-login --exec-arg=get-token --exec-arg=--oidc-issuer-url=https://auth.sciwhiz12.dev --exec-arg=--oidc-client-id=kubernetes-access --exec-arg=--oidc-extra-scope=groups --exec-arg=--oidc-extra-scope=email
     ```
 
     The `oidc` in the first line may be replaced with any username, particularly to avoid conflicts with existing usernames for accessing other clusters.
