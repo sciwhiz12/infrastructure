@@ -1,0 +1,28 @@
+apiVersion: apiserver.config.k8s.io/v1beta1
+kind: AuthenticationConfiguration
+
+# Authentication configuration for JWT access (OpenID Connect)
+# This should be synchronized with the Dex configuration
+
+# (k8s checks this file for changes and reloads)
+jwt:
+  - issuer:
+      url: https://auth.sciwhiz12.dev
+      audiences:
+        - kubernetes-access
+    claimMappings:
+      username:
+        # Use email as username, with no prefix
+        claim: "email"
+        prefix: ""
+      groups:
+        # Use groups of user, with no prefix
+        claim: "groups"
+        prefix: ""
+      uid:
+        claim: "sub"
+    userValidationRules:
+      - expression: "!user.username.startsWith('system:')"
+        message: "username cannot used reserved system: prefix"
+      - expression: "user.groups.all(group, !group.startsWith('system:'))"
+        message: "groups cannot used reserved system: prefix"
