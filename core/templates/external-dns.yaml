@@ -22,6 +22,7 @@ spec:
       targetRevision: 7.5.2
       helm:
         valuesObject:
+          policy: sync # Sync records (delete old records owned by external-dn)
           provider: cloudflare
           cloudflare:
             secretName: cloudflare-api-token # Token should be stored under key of 'cloudflare_api_token'
